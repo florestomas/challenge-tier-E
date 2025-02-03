@@ -1,21 +1,4 @@
-<?php
-// Parámetros de conexión a la base de datos
-$host = "localhost"; // Dirección del servidor MySQL (por lo general localhost)
-$usuario = "root";   // Usuario (por defecto "root" en MySQL)
-$password = "";      // Contraseña (déjala vacía si no tiene)
-$baseDeDatos = "blog_db"; // Nombre de la base de datos
-
-// Crear la conexión
-$conexion = new mysqli($host, $usuario, $password, $baseDeDatos);
-
-// Verificar si hubo un error en la conexión
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-} else {
-    /*echo "Conexión exitosa a la base de datos '<b>$baseDeDatos</b>'";*/
-}
-
-?>
+<?php include 'connect.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -45,38 +28,15 @@ if ($conexion->connect_error) {
 </head>
 
 <body>
-    <!--  NavBar  -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.php">Blog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        Categorías
-                    </a>
-                    <div class="dropdown-menu">
-                        <?php
-                        $sql = "SELECT * FROM categories";
-                        $result = $conexion->query($sql);
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<a class='dropdown-item' href='category.php?id={$row['id']}'>{$row['name']}</a>";
-                        }
-                        ?>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="create_blog.php">Crear Blog</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
+    <?php include 'menu.php'; ?>
+
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
     <div class="container">
         <h1 class="py-4">Bienvenido</h1>
         <h2>Blogs recientes</h2>
@@ -91,7 +51,7 @@ if ($conexion->connect_error) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='col-md-4'>";
                     echo "  <div class='card'>";
-                    echo "      <img class='card-img-top img-fluid img-thumbnail' alt='{$row['name']}' src='{$row['category']}' />";
+                    echo "      <img class='card-img-top' alt='{$row['name']}' src='{$row['category']}' />";
                     echo "      <div class='card-body'>";
                     echo "          <h5 class='card-title'>{$row['title']}</h5>";
                     echo "          <h6 class='card-subtitle mb-2 text-muted'>{$row['name']}</h6>";
@@ -109,32 +69,6 @@ if ($conexion->connect_error) {
     </div>
 
 
-    <div class="container py-4">
-        <h1>Crear un nuevo blog</h1>
-        <form action="create_blog_process.php" method="POST">
-            <div class="form-group">
-                <label for="title">Título</label>
-                <input type="text" name="title" id="title" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="category">Categoría</label>
-                <select name="category_id" id="category" class="form-control" required>
-                    <?php
-                    $sql = "SELECT * FROM categories";
-                    $result = $conexion->query($sql);
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value='{$row['id']}'>{$row['name']}</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="description">Descripción</label>
-                <textarea name="description" id="description" class="form-control" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Crear Blog</button>
-        </form>
-    </div>
 
     <!-- Script JS-->
     <script src="script.js"></script>
