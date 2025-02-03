@@ -21,8 +21,20 @@ if ($conexion->connect_error) {
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Página Principal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <!-- shrink-to-fit: permite que el contendio de la pagina se achike-->
+
+    <meta name="description" content="Challenge E" />
+    <meta name="author" content="Tomas Flores | Dragodev Trainee" />
+    <meta charset="UTF-8" />
+
+    <link rel="icon" href="images/dragodevs_logo.jpeg" />
+
+    <title>Challenge Tier E | FLORES Tomas</title>
     <!-- Bootstrap CSS -->
     <link
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -33,7 +45,7 @@ if ($conexion->connect_error) {
 </head>
 
 <body>
-
+    <!--  NavBar  -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="index.php">Blog</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -66,7 +78,7 @@ if ($conexion->connect_error) {
     </nav>
 
     <div class="container">
-        <h1>Bienvenido</h1>
+        <h1 class="py-4">Bienvenido</h1>
         <h2>Blogs recientes</h2>
         <div class="row">
             <?php
@@ -79,7 +91,7 @@ if ($conexion->connect_error) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='col-md-4'>";
                     echo "  <div class='card'>";
-                    echo "      <img class='card-img-top' alt='{$row['name']}' src='{$row['image']}' />";
+                    echo "      <img class='card-img-top img-fluid img-thumbnail' alt='{$row['name']}' src='{$row['category']}' />";
                     echo "      <div class='card-body'>";
                     echo "          <h5 class='card-title'>{$row['title']}</h5>";
                     echo "          <h6 class='card-subtitle mb-2 text-muted'>{$row['name']}</h6>";
@@ -97,7 +109,7 @@ if ($conexion->connect_error) {
     </div>
 
 
-    <div class="container">
+    <div class="container py-4">
         <h1>Crear un nuevo blog</h1>
         <form action="create_blog_process.php" method="POST">
             <div class="form-group">
@@ -123,6 +135,16 @@ if ($conexion->connect_error) {
             <button type="submit" class="btn btn-success">Crear Blog</button>
         </form>
     </div>
+
+    <!-- Script JS-->
+    <script src="script.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
